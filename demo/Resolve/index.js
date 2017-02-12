@@ -6,20 +6,16 @@ const UserList = ({userList, onSelect}) => <ul>
   {userList.map(({id, name}) => <li key={id}><a href='javascript:' onClick={() => onSelect(id)}>{name}</a></li>)}
 </ul>;
 
-const UserDetail = ({user:{id, name, age}}) => <div>
-  <dl>
-    <dt>id</dt>
-    <dd>{id}</dd>
-    <dt>name</dt>
-    <dd>{name}</dd>
-    <dt>age</dt>
-    <dd>{age}</dd>
-  </dl>
-</div>;
+const UserDetail = ({user:{id, name, age}}) =>
+  <div>
+    <dl>
+      <dt>id</dt><dd>{id}</dd>
+      <dt>name</dt><dd>{name}</dd>
+      <dt>age</dt><dd>{age}</dd>
+    </dl>
+  </div>;
 
 export default class ResolveDemo extends React.Component {
-  promiseBuffer = {};
-  
   constructor(props) {
     super(props);
     this.state = {
@@ -27,6 +23,7 @@ export default class ResolveDemo extends React.Component {
     };
   }
   
+  promiseBuffer = {};
   selectUser = (id) => {
     if (!(id in this.promiseBuffer)) {
       this.promiseBuffer[id] = getUserDetail(id);
@@ -36,8 +33,7 @@ export default class ResolveDemo extends React.Component {
   
   render() {
     let {userList$, userDetail$} = this.state;
-    return (
-      <div>
+    return <div>
         <Resolve name='userList' promise={userList$} pending={<div>Fetching user list...</div>}>
           <UserList onSelect={this.selectUser}/>
         </Resolve>
@@ -47,6 +43,6 @@ export default class ResolveDemo extends React.Component {
                  rejected={({error}) => <div>{error.message}</div>}>
           <UserDetail />
         </Resolve>
-      </div>);
+      </div>;
   }
 }
