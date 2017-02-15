@@ -6,6 +6,10 @@
   "repository": "zjuasmn/react-mobx-utils",
   "author": "zjuasmn <zjuasmn@gmail.com>",
   "license": "MIT",
+  "files": [
+    "/*.js",
+    "!*.config.js"
+  ],
   "scripts": {
     "build": "babel src -d . --ignore __test__",
     "start": "webpack-dev-server --hot --inline --content-base public"

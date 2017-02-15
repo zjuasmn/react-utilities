@@ -41,7 +41,6 @@ export default class Resolve extends Component {
       debug('setPromise', promise);
       this.promise = promise;
       
-      
       promise && promise.then(
         (data) => this.done(promise, data, FULFILLED),
         (error) => this.done(promise, error, REJECTED)

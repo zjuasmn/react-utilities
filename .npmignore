@@ -1,6 +1,0 @@
-.npmignore
-node_modules
-yarn.lock
-.gitignore
-src/
-.idea
