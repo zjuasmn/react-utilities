@@ -1,9 +1,9 @@
 import React, {Component} from "react";
-import PropTypes from 'react/lib/ReactPropTypes'
 import {observer} from "mobx-react";
 import {observable, action} from 'mobx'
 import isEqualShallow from 'is-equal-shallow'
 const debug = require('debug')('react-mobx-utils:Debounce');
+const PropTypes = React.PropTypes;
 
 @observer
 export default class Debounce extends Component {

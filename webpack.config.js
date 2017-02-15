@@ -1,32 +1,24 @@
-const path = require('path');
-
+const webpack = require('webpack');
 
 module.exports = {
-  entry: [
-    path.resolve(__dirname, 'demo/index.js'),
-  ],
+  output: {
+    library: 'reactMobxUtils',
+    libraryTarget: 'umd'
+  },
+  
   module: {
     rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loaders: ['babel-loader'],
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
-      // {
-      //   test: /\.(jpe?g|png|gif)$/i,
-      //   loaders: [
-      //     'file?hash=sha512&digest=hex&name=i/[hash].[ext]',
-      //     'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=true'
-      //   ]
-      // },
+      {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'}
     ]
   },
-  output: {filename: 'index.bundle.js', path: path.resolve(__dirname, 'public')},
+  
   plugins: [
-    
-  ]
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+    })
+  ],
+  externals: {
+    mobx: 'mobx',
+    react: 'React',
+  }
 };

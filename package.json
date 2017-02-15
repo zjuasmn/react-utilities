@@ -12,7 +12,13 @@
   ],
   "scripts": {
     "build": "babel src -d . --ignore __test__",
-    "start": "webpack-dev-server --hot --inline --content-base public"
+    "start": "webpack-dev-server --hot --inline --content-base public",
+    "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha src/__test__",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "build-lib": "babel src -d . --ignore __test__",
+    "build-umd": "webpack src/index.js umd/react-mobx-utils.js",
+    "build-min": "webpack -p src/index.js umd/react-mobx-utils.min.js",
+    "tdd": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha src/__test__ -w"
   },
   "dependencies": {
     "debug": "^2.6.1",
@@ -23,18 +29,40 @@
     "react": "^15.0.0"
   },
   "devDependencies": {
+    "babel": "^6.23.0",
     "babel-cli": "^6.22.2",
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
+    "babel-plugin-istanbul": "^4.0.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.22.0",
     "babel-preset-stage-0": "^6.22.0",
+    "babel-register": "^6.23.0",
+    "chai": "^3.5.0",
+    "coveralls": "^2.11.16",
+    "cross-env": "^3.1.4",
     "css-loader": "^0.26.1",
+    "enzyme": "^2.7.1",
+    "istanbul": "^0.4.5",
+    "jsdom": "^9.11.0",
     "lodash": "^4.17.4",
+    "mocha": "^3.2.0",
+    "nyc": "^10.1.2",
+    "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.4.2",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0"
+  },
+  "nyc": {
+    "require": [
+      "babel-register",
+      "babel-polyfill",
+      "./src/__test__/setup.js"
+    ],
+    "sourceMap": false,
+    "instrument": false
   }
 }

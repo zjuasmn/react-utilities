@@ -1,9 +1,9 @@
 import React, {Component} from "react";
-import PropTypes from 'react/lib/ReactPropTypes'
 import {observer} from "mobx-react";
 import {observable, action} from 'mobx'
 const debug = require('debug')('react-mobx-utils:Throttle');
 
+const PropTypes = React.PropTypes;
 @observer
 export default class Throttle extends Component {
   static propTypes = {

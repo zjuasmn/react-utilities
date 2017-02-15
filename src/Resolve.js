@@ -1,8 +1,9 @@
 import React, {Component} from "react";
-import PropTypes from "react/lib/ReactPropTypes";
 import {observer} from "mobx-react";
 import {observable, action} from "mobx";
 import isPlainObject from "is-plain-object";
+import {render, RenderablePropType} from "./Utils";
+const PropTypes = React.PropTypes;
 
 const debug = require('debug')('react-mobx-utils:Resolve');
 
@@ -11,19 +12,15 @@ export const PENDING = "pending";
 export const FULFILLED = "fulfilled";
 export const REJECTED = "rejected";
 
-const PropTypeFuncOrElememt = React.PropTypes.oneOfType([PropTypes.func, PropTypes.element]);
-const buildElement = (Comp, props, children) => !!Comp && (React.isValidElement(Comp) ? React.cloneElement(Comp, props) :
-  <Comp {...props}>{children}</Comp>);
-
 @observer
 export default class Resolve extends Component {
   static propTypes = {
     name: PropTypes.string,
     promise: PropTypes.object,
-    idle: PropTypeFuncOrElememt,
-    pending: PropTypeFuncOrElememt,
-    rejected: PropTypeFuncOrElememt,
-    fulfilled: PropTypeFuncOrElememt,
+    idle: RenderablePropType,
+    pending: RenderablePropType,
+    rejected: RenderablePropType,
+    fulfilled: RenderablePropType,
   };
   
   @observable value = null;
@@ -79,21 +76,14 @@ export default class Resolve extends Component {
     const {name, promise, idle, pending, rejected, fulfilled, children, ...props} = this.props;
     switch (this._state) {
       case IDLE:
-        return buildElement(idle, props);
+        return render(idle, props);
       case PENDING:
-        return buildElement(pending, props);
+        return render(pending, props);
       case REJECTED:
-        return buildElement(rejected, {error: this.value, ...props});
+        return render(rejected, {error: this.value, ...props});
       case FULFILLED:
         const resolvedProps = name ? {[name]: this.value} : isPlainObject(this.value) ? this.value : {};
-        const oProps = {...props, ...resolvedProps};
-        if (fulfilled) {
-          return buildElement(fulfilled, oProps, children);
-        } else if (children) {
-          return buildElement(React.Children.only(children), oProps);
-        } else {
-          return null;
-        }
+        return render(fulfilled, {children, ...props, ...resolvedProps});
     }
   }
 }
