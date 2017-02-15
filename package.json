@@ -19,7 +19,9 @@
     "build-umd": "webpack src/index.js umd/react-mobx-utils.js",
     "build-react-resolve": "webpack src/React-Resolve.js umd/react-resolve.js",
     "build-min": "webpack -p src/index.js umd/react-mobx-utils.min.js",
-    "tdd": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha src/__test__ -w"
+    "tdd": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha src/__test__ -w",
+    "prerelease": "npm run build",
+    "release": "node ./scripts/release.js"
   },
   "dependencies": {
     "debug": "^2.6.1",
@@ -53,6 +55,7 @@
     "nyc": "^10.1.2",
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.4.2",
+    "readline-sync": "^1.4.6",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0"
