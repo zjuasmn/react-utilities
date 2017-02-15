@@ -2,7 +2,12 @@
 
 * [Introduction](README.md)
 * Installation
+* Getting Started
 * [WHY another library?](docs/why.md)
+* Guide
+  * Dynamic Component 
+  * Use with Router
+  * Animation
 * Components
   * [Mapping](docs/mapping.md)
   * [Resolve](docs/resolve.md)
