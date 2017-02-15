@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {observer} from "mobx-react";
 import {observable, action} from "mobx";
 import isPlainObject from "is-plain-object";
-import {render, RenderablePropType} from "./Utils";
+import {render, RenderablePropType} from "./utils";
 const PropTypes = React.PropTypes;
 
 const debug = require('debug')('react-mobx-utils:Resolve');

@@ -1,7 +1,7 @@
 // import React, {Component} from "react";
 // import {observer} from "mobx-react";
 // import isPlainObject from "is-plain-object";
-// import {render, RenderablePropType} from "./Utils";
+// import {render, RenderablePropType} from "./utils";
 // const debug = require('debug')('react-mobx-utils:Mapping');
 // const PropTypes = React.PropTypes;
 //

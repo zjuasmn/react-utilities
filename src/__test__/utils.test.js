@@ -1,5 +1,5 @@
 import React from 'react';
-import {render as myRender} from '../Utils'
+import {render as myRender} from '../utils'
 import {mount} from 'enzyme';
 import {expect} from 'chai';
 
