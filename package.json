@@ -17,6 +17,7 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build-lib": "babel src -d . --ignore __test__",
     "build-umd": "webpack src/index.js umd/react-mobx-utils.js",
+    "build-react-resolve": "webpack src/React-Resolve.js umd/react-resolve.js",
     "build-min": "webpack -p src/index.js umd/react-mobx-utils.min.js",
     "tdd": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha src/__test__ -w"
   },
