@@ -37,6 +37,14 @@ var Debounce = require('react-mobx-utils').Debounce
 
 ### Resolve
   `Resolve` is a react component which resolve `promise` and pass the resolved value to children component when promise return. With `Resolve` you can wrap your pure, stateless component to connect them to remote data.
+  
+```jsx
+<Resolve name='user' promise={fetchUser(id)}>
+  <User />
+</Resolve>
+// after fetch data `{id:1,name:'alice'}` it would render
+<User user={{id:1,name:'alice'}} /> 
+```
 
 #### Demo
   ![https://github.com/zjuasmn/react-mobx-utils/blob/master/resolve-demo.gif?raw=true](https://github.com/zjuasmn/react-mobx-utils/blob/master/resolve-demo.gif?raw=true)
