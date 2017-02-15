@@ -6,7 +6,7 @@ import {expect} from 'chai';
 async function nextTick() {
   return new Promise(setTimeout);
 }
-let User = ({id,name}) => <p>{`id:${id} name:${name}`}</p>;
+let User = ({id, name}) => <p>{`id:${id} name:${name}`}</p>;
 describe('Resolve', () => {
   let resolve, reject, promise;
   
@@ -40,9 +40,9 @@ describe('Resolve', () => {
   });
   
   it('should map resolved values when name is not set', async() => {
-    let User = ({id,name}) => <p>{`id:${id} name:${name}`}</p>;
+    let User = ({id, name}) => <p>{`id:${id} name:${name}`}</p>;
     const wrapper = mount(<Resolve promise={promise}><User/></Resolve>);
-    resolve({id:1,name:'alice'});
+    resolve({id: 1, name: 'alice'});
     await nextTick();
     expect(wrapper.html()).to.be.eql(`<p>id:1 name:alice</p>`);
   });
@@ -53,21 +53,25 @@ describe('Resolve', () => {
       localResolve = _resolve;
     });
     const wrapper = mount(<Resolve promise={promise}><User/></Resolve>);
-    resolve({id:1,name:'alice'});
-    wrapper.setProps({promise:localPromise});
-    localResolve({id:2,name:'Bob'});
+    resolve({id: 1, name: 'alice'});
+    wrapper.setProps({promise: localPromise});
+    localResolve({id: 2, name: 'Bob'});
     await nextTick();
     expect(wrapper.html()).to.be.eql(`<p>id:2 name:Bob</p>`);
     wrapper.unmount();
   });
   it('promise resolve empty value should work', async() => {
-    const wrapper = mount(<Resolve promise={promise}><div/></Resolve>);
+    const wrapper = mount(<Resolve promise={promise}>
+      <div/>
+    </Resolve>);
     resolve();
     await nextTick();
     expect(wrapper.html()).to.be.eql(`<div></div>`);
   });
   it('resolved value over writes same name property', async() => {
-    const wrapper = mount(<Resolve name='id' promise={promise}><div id="1"/></Resolve>);
+    const wrapper = mount(<Resolve name='id' promise={promise}>
+      <div id="1"/>
+    </Resolve>);
     resolve(2);
     await nextTick();
     expect(wrapper.html()).to.be.eql(`<div id="2"></div>`);
