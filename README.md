@@ -1,7 +1,12 @@
-# react-mobx-utils [![npm package][npm-badge]][npm] [![GitHub issues](https://img.shields.io/github/issues/zjuasmn/react-mobx-utils.svg)]() [![Travis](https://img.shields.io/travis/zjuasmn/react-mobx-utils.svg)]() [![Coveralls](https://img.shields.io/coveralls/zjuasmn/react-mobx-utils.svg)]()
-                   
+# react-mobx-utils 
+[![npm package][npm-badge]][npm] [![github issues][github-issues]]() [![Travis][travis]]() [![Coveralls][coveralls]]()
+
+
+[github-issues]:https://img.shields.io/github/issues/zjuasmn/react-mobx-utils.svg
 [npm-badge]:https://img.shields.io/npm/v/react-mobx-utils.svg?style=flat-square
 [npm]:https://www.npmjs.org/package/react-mobx-utils
+[travis]:https://img.shields.io/travis/zjuasmn/react-mobx-utils.svg
+[coveralls]:https://img.shields.io/coveralls/zjuasmn/react-mobx-utils.svg
 
 Utility react components with mobx power
 
