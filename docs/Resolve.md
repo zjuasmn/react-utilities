@@ -1,6 +1,6 @@
 # Resolve
 
-`Resolve` is a PURE react component which resolve `promise` and pass the resolved value to children component when promise return. With `Resolve` you can wrap your pure, stateless component to connect them to remote data.
+`Resolve` is a react component which resolve `promise` and pass the resolved value to children component when promise return. With `Resolve` you can wrap your pure, stateless component to connect them to remote data.
 
 
 ## Demo

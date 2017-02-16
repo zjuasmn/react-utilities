@@ -1,5 +1,16 @@
 # Why anthor `react` library
 
+
+```jsx
+const getUser$ = ({userId})=>({promise:fetchUser(userId),component:Resolve, name:'user'};
+
+<Route path='/user/:userId'>
+  <Delegate watch='userId' _={getUser$} >   
+    <User />   
+  </Delegate />
+</Route>
+```
+
 `React` is design as a synchronous function `f` where `UI = f(state)`. As a result, when aync changing is outside the `React` Realm, one needs something to notify certatin compnents to react on new state to prevent global update.
 
 The most common case of async state changing is `data fetching` from server, and you might also met `debounce` and `throttle` in form data handling.

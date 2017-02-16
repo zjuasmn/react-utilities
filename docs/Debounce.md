@@ -1,6 +1,6 @@
 # Debounce
 
-`Debounce` is a react component with `UI = f(debounce(state))`
+`Debounce` is a component with `UI = f(debounce(state))`
 
 
 ## Props
