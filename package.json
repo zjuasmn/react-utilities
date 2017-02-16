@@ -1,6 +1,6 @@
 {
   "name": "react-utilities",
-  "version": "0.4.0",
+  "version": "0.4.4",
   "description": "React utility components ",
   "main": "index.js",
   "repository": "zjuasmn/react-utilities",
@@ -8,17 +8,17 @@
   "license": "MIT",
   "files": [
     "/*.js",
-    "!*.config.js"
+    "!*.config.js",
+    "/umd"
   ],
   "scripts": {
-    "build": "babel src -d . --ignore __test__",
-    "start": "webpack-dev-server --hot --inline --content-base public",
+    "start": "cross-env NODE_ENV=test DEBUG=react-utilities:* nyc --reporter=html --reporter=text mocha src/__test__ -w",
     "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha src/__test__",
+    "build": "babel src -d . --ignore __test__",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build-lib": "babel src -d . --ignore __test__",
     "build-umd": "webpack src/index.js umd/react-utilities.js",
     "build-min": "webpack -p src/index.js umd/react-utilities.min.js",
-    "tdd": "cross-env NODE_ENV=test DEBUG=react-utilities:* nyc --reporter=html --reporter=text mocha src/__test__ -w",
     "prerelease": "npm run build",
     "release": "node ./scripts/release.js"
   },
