@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {observer} from "mobx-react";
 import {observable, action} from 'mobx'
 import isEqualShallow from 'is-equal-shallow'
-const debug = require('debug')('react-mobx-utils:Debounce');
+const debug = require('debug')('react-utilities:Debounce');
 const PropTypes = React.PropTypes;
 
 @observer

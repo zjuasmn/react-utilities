@@ -1,7 +1,7 @@
-# react-mobx-utils [![npm package][npm-badge]][npm] [![GitHub issues](https://img.shields.io/github/issues/zjuasmn/react-mobx-utils.svg)](https://github.com/zjuasmn/react-mobx-utils/issues) [![Build Status](https://travis-ci.org/zjuasmn/react-mobx-utils.svg?branch=master)](https://travis-ci.org/zjuasmn/react-mobx-utils) [![Coverage Status](https://coveralls.io/repos/github/zjuasmn/react-mobx-utils/badge.svg?branch=master)](https://coveralls.io/github/zjuasmn/react-mobx-utils?branch=master)
+# react-utilities [![npm package][npm-badge]][npm] [![GitHub issues](https://img.shields.io/github/issues/zjuasmn/react-utilities.svg)](https://github.com/zjuasmn/react-utilities/issues) [![Build Status](https://travis-ci.org/zjuasmn/react-utilities.svg?branch=master)](https://travis-ci.org/zjuasmn/react-utilities) [![Coverage Status](https://coveralls.io/repos/github/zjuasmn/react-utilities/badge.svg?branch=master)](https://coveralls.io/github/zjuasmn/react-utilities?branch=master)
 
-[npm-badge]: https://img.shields.io/npm/v/react-mobx-utils.svg?style=flat-square
-[npm]: https://www.npmjs.org/package/react-mobx-utils
+[npm-badge]: https://img.shields.io/npm/v/react-utilities.svg?style=flat-square
+[npm]: https://www.npmjs.org/package/react-utilities
 
 Utility react components with mobx power
 
@@ -10,22 +10,22 @@ Utility react components with mobx power
 Using [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/):
 
 ```
-$ npm install --save react-mobx-utils
+$ npm install --save react-utilities
 or
-$ yarn add react-mobx-utils
+$ yarn add react-utilities
 ```
 
 Then with a module bundler like [webpack](https://webpack.github.io/), use as you would anything else.
 
 ```js
 // using ES6 modules
-import {Delegate, Resolve, Debounce, Throttle} from 'react-mobx-utils'
+import {Delegate, Resolve, Debounce, Throttle} from 'react-utilities'
 
 // or
-import Resolve from 'react-mobx-utils/Resolve'
+import Resolve from 'react-utilities/Resolve'
 
 // using CommonJS modules
-var Delegate = require('react-mobx-utils').Delegate
+var Delegate = require('react-utilities').Delegate
 ```
 
 ## Overview

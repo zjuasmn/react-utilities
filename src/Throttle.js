@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {observer} from "mobx-react";
 import {observable, action} from 'mobx'
-const debug = require('debug')('react-mobx-utils:Throttle');
+const debug = require('debug')('react-utilities:Throttle');
 
 const PropTypes = React.PropTypes;
 @observer

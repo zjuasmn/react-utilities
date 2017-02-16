@@ -4,12 +4,12 @@
 
 
 ## Demo
- ![https://github.com/zjuasmn/react-mobx-utils/blob/master/resolve-demo.gif?raw=true](https://github.com/zjuasmn/react-mobx-utils/blob/master/resolve-demo.gif?raw=true)
+ ![https://github.com/zjuasmn/react-utilities/blob/master/resolve-demo.gif?raw=true](https://github.com/zjuasmn/react-utilities/blob/master/resolve-demo.gif?raw=true)
 
 
 ```js
 import React from "react";
-import Resolve from "react-mobx-utils/Resolve";
+import Resolve from "react-utilities/Resolve";
 import {getUserDetail, getUserList} from "./mock";
 
 const UserList = ({userList, onSelect}) => <ul>

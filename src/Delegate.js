@@ -1,22 +1,45 @@
 import React, {Component} from "react";
-import {observer} from "mobx-react";
 import isPlainObject from "is-plain-object";
 import invariant from 'invariant'
 import {render, RenderablePropType} from "./utils";
-const debug = require('debug')('react-mobx-utils:Delegate');
+import isEqualShallow from 'is-equal-shallow'
+const debug = require('debug')('react-utilities:Delegate');
 const PropTypes = React.PropTypes;
 
-
 const IdentityFn = (props) => props;
-@observer
+
 export default class Delegate extends Component {
   static propTypes = {
     _: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     component: RenderablePropType,
+    
   };
   static defaultProps = {
-    _: IdentityFn
+    _: IdentityFn,
+    watch: true,
   };
+  
+  shouldComponentUpdate(nextProps) {
+    let {watch} = this.props;
+    if (watch) {
+      if (watch instanceof Array) {
+        for (let key of watch) {
+          if (this.props[key] != nextProps[key]) {
+            return true;
+          }
+        }
+        return false;
+      } else if (typeof watch == 'string') {
+        return this.props[watch] != nextProps[watch];
+      } else if (typeof watch == 'boolean') {
+        return isEqualShallow(this.props, nextProps);
+      } else {
+        console.error('???');
+      }
+    } else {
+      return true;
+    }
+  }
   
   render() {
     let {_} = this.props;
@@ -59,7 +82,7 @@ export default class Delegate extends Component {
         }
       }
     }
-    let {_:_1, component, ...oProps} = props;
+    let {_:_1, watch:_2, component, ...oProps} = props;
     return render(component, oProps);
   }
 }

@@ -1,18 +1,14 @@
 import React, {Component} from "react";
-import {observer} from "mobx-react";
-import {observable, action} from "mobx";
 import isPlainObject from "is-plain-object";
 import {render, RenderablePropType} from "./utils";
 const PropTypes = React.PropTypes;
-
-const debug = require('debug')('react-mobx-utils:Resolve');
+const debug = require('debug')('react-utilities:Resolve');
 
 export const IDLE = 'idle';
 export const PENDING = "pending";
 export const FULFILLED = "fulfilled";
 export const REJECTED = "rejected";
 
-@observer
 export default class Resolve extends Component {
   static propTypes = {
     name: PropTypes.string,
@@ -22,18 +18,15 @@ export default class Resolve extends Component {
     rejected: RenderablePropType,
     fulfilled: RenderablePropType,
   };
-  
-  @observable value = null;
-  @observable _state = IDLE;
+  state = {
+    value: null,
+    _state: IDLE
+  };
   isPromiseSwitching;
   promise = null;
+  isUnmount = false;
   
-  constructor(props) {
-    super(props);
-    this.setPromise(props.promise);
-  }
-  
-  setPromise = action((promise = null) => {
+  setPromise = ((promise = null) => {
     if (promise != this.promise) {
       debug('setPromise', promise);
       this.promise = promise;
@@ -42,25 +35,28 @@ export default class Resolve extends Component {
         (data) => this.done(promise, data, FULFILLED),
         (error) => this.done(promise, error, REJECTED)
       );
-      
       // Prevent the flash when changing promise.
       this.isPromiseSwitching = true;
-      setTimeout(action(() => {
+      setTimeout((() => {
         if (this.isPromiseSwitching) {
           this.isPromiseSwitching = false;
-          this._state = this.promise ? PENDING : IDLE;
-          this.value = null;
+          this.isUnmount || this.setState({
+            value: null,
+            _state: this.promise ? PENDING : IDLE
+          })
         }
       }));
     }
   });
   
-  done = action((promise, value, state) => {
+  done = ((promise, value, state) => {
     debug('done', promise, value, state);
     if (promise == this.promise) {
       this.isPromiseSwitching = false;
-      this._state = state;
-      this.value = value;
+      this.setState({
+        _state: state,
+        value
+      })
     }
   });
   
@@ -68,21 +64,28 @@ export default class Resolve extends Component {
     this.setPromise(nextProps.promise);
   }
   
+  componentWillMount() {
+    this.setPromise(this.props.promise);
+    this.isUnmount = false;
+  }
+  
   componentWillUnmount() {
     this.setPromise();
+    this.isUnmount = true;
   }
   
   render() {
     const {name, promise, idle, pending, rejected, fulfilled, children, ...props} = this.props;
-    switch (this._state) {
+    let {_state, value} = this.state;
+    switch (_state) {
       case IDLE:
         return render(idle, props);
       case PENDING:
         return render(pending, props);
       case REJECTED:
-        return render(rejected, {error: this.value, ...props});
+        return render(rejected, {error: value, ...props});
       case FULFILLED:
-        const resolvedProps = name ? {[name]: this.value} : isPlainObject(this.value) ? this.value : {};
+        const resolvedProps = name ? {[name]: value} : isPlainObject(value) ? value : {};
         return render(fulfilled, {children, ...props, ...resolvedProps});
     }
   }

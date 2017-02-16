@@ -34,5 +34,13 @@ describe('Delegate', () => {
     expect(()=>mount(<Delegate _={123} component="p">1</Delegate>).html()).to.throw(Error);
     console.error = x;
   });
+  it('watch should works',()=>{
+    let wrapper = mount(<Delegate component='div' watch="component" />);
+    expect(wrapper.html()).to.be.eql('<div></div>');
+    wrapper.setProps({children:1});
+    expect(wrapper.html()).to.be.eql('<div></div>');
+    wrapper.setProps({component:'p'});
+    expect(wrapper.html()).to.be.eql('<p>1</p>');
+  })
 });
 
