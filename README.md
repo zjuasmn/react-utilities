@@ -3,10 +3,11 @@
 [npm-badge]: https://img.shields.io/npm/v/react-utilities.svg?style=flat-square
 [npm]: https://www.npmjs.org/package/react-utilities
 
-Whole document is in [Gitbook](https://zjuasmn.gitbooks.io/react-utilities/content/) now.
 The missing react utility components. 
 
 [Why anthor utility libary?](docs/why.md)
+
+Whole document is in [Gitbook](https://zjuasmn.gitbooks.io/react-utilities/content/) now.
 
 ## Installation
 

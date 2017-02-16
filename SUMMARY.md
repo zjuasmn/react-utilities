@@ -11,7 +11,7 @@
   * [Debounce](docs/Debounce.md)
   * [Throttle](docs/Throttle.md)
   * [Diff](docs/Diff.md)
-* Functions
+* [Functions](functions.md)
   * [render](docs/functions/render.md)
 * [Constants](docs/constans.md)
 
