@@ -1,10 +1,10 @@
 # Summary
 
-* [Introduction](README.md)
+* [Getting started](README.md)
 * [WHY another library?](docs/why.md)
 * Guide
   * Dynamic Component 
-  * Use with Router
+  * [Use with Router](docs/use-with-router.md)
   * Animation
 * Components  
   * [Resolve](docs/Resolve.md)
