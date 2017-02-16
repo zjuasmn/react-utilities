@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import isEqualShallow from 'is-equal-shallow'
+import {isSwallowEqual} from './utils'
 import {render} from './utils'
 const debug = require('debug')('react-utilities:Debounce');
 const PropTypes = React.PropTypes;
@@ -63,7 +63,7 @@ export default class Debounce extends Component {
     }
     let now = new Date().getTime();
     
-    if (!isEqualShallow(props, this.prevProps)) {
+    if (!isSwallowEqual(props, this.prevProps)) {
       this.prevProps = props;
       this.lastChangeTime = now;
       this.deferUpdate(timeout);

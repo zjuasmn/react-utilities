@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import isPlainObject from "is-plain-object";
 import invariant from 'invariant'
-import {render, RenderablePropType} from "./utils";
-import isEqualShallow from 'is-equal-shallow'
+import {render, RenderablePropType, isPropsSwallowEqual} from "./utils";
 const debug = require('debug')('react-utilities:Delegate');
 const PropTypes = React.PropTypes;
 
@@ -28,7 +27,7 @@ export default class Delegate extends Component {
       case 'string':
         return this.props[watch] != nextProps[watch];
       case 'boolean': // it should be `true` now.
-        return isEqualShallow(this.props, nextProps);
+        return isPropsSwallowEqual(this.props, nextProps);
       case 'function':
         return watch(this.props, nextProps);
       default:
