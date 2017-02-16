@@ -8,7 +8,8 @@
   "license": "MIT",
   "files": [
     "/*.js",
-    "!*.config.js"
+    "!*.config.js",
+    "/umd"
   ],
   "scripts": {
     "start": "cross-env NODE_ENV=test DEBUG=react-utilities:* nyc --reporter=html --reporter=text mocha src/__test__ -w",
