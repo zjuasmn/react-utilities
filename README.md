@@ -3,7 +3,9 @@
 [npm-badge]: https://img.shields.io/npm/v/react-utilities.svg?style=flat-square
 [npm]: https://www.npmjs.org/package/react-utilities
 
-Utility react components with mobx power
+The missing react utility components. 
+
+[Why anthor utility libary?](docs/why.md)
 
 ## Installation
 

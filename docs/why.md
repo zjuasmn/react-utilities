@@ -1,118 +1,142 @@
-# Why anthor `react` library
+# Why anthor React library
 
+Yes, React is great and we all love it! `React` is design as a synchronous function `f` where `UI = f(state)` and all changes in state will sycn to `UI` with `render` function apply from top to bottom. In the realm of  `React`, nearly every thing is synchronous.
 
-```jsx
-const getUser$ = ({userId})=>({promise:fetchUser(userId),component:Resolve, name:'user'};
+## Resolve
+  But a lot of things in `javascript` are async, like `callback`, `promise` in data fetching. A bunch of repeat work needs to do in the `render` method like handling pending state or error state of promise. So there comes a lot of project to make things easier, like [React Resolve](http://ericclemmons.com/react-resolver/), [AsyncProps](https://github.com/ryanflorence/async-props) ...
 
-<Route path='/user/:userId'>
-  <Delegate watch='userId' _={getUser$} >   
-    <User />   
-  </Delegate />
-</Route>
-```
+But the common pattern of these library is to let you add data definitions to your component using `decorator` or other things. 
 
-`React` is design as a synchronous function `f` where `UI = f(state)`. As a result, when aync changing is outside the `React` Realm, one needs something to notify certatin compnents to react on new state to prevent global update.
-
-The most common case of async state changing is `data fetching` from server, and you might also met `debounce` and `throttle` in form data handling.
-
-Althought there are a list of other project from the community for per-component async data fetching, but their overhead is quite fat or have some opinion on what you library are using. So here we provide unopinionated react component to solve thes problems. (`mobx` and `mobx-react` is used but you are not required to use them in your project)
-
- 
-
--  |react-mobx-util/Resolve | react-resover |  async-props
----|---|---
-overhead| middleware | decorator | middleware + static method |
-how | pass promise | config function | defing static method |
-
-For example, we are going to implement a page satisfies following logic:
-> User navigate to Route `/user/alice`
-> Fetch `user` info from server `/api/user/:name` using `getUser(name)`
-> Server returns `user` data as `{id:'123',name:'alice'}`
-> Render <User user={user} />
-
-* [react-mobx-util/Resolve](.)
-
-```jsx
-import Resolve from 'react-mobx-util/Resolve'
-import Route from 'react-mobx-router/Route'
-
-const UserPage = () =>
-  <Route path='user/:name' mapping={({name})=>{promise:getUser(name)}}>
-    <Resolve name='user'>
-       <User />
-    <Resolve>     
-  </Route>
-```
-
-* [react-resolver](https://github.com/ericclemmons/react-resolver) (decorator)
-
-
+React Resolver example from its README:
 ```jsx
 import { resolve } from "react-resolver";
 
-@resolve("user", function({name}) {
-  return getUser(name)
+@resolve("user", function(props) {
+  return http.get(`/api/users/${props.params.userId}`);
 })
-class UserWrapper extends React.Component {
- render(){
-   return <User user={user} />
- }
+class UserProfile extends React.Component {
+  render() {
+    const { user } = this.props;
+    ...
+  }
 }
-
-const UserPage = () =>
-  <Route path='/user/:name' component={UserWrapper} />
 ```
 
+What if we want to reuse the pure component `UserProfile` to render `user` from other source like `/api/me` or from the memory cache? Should we change the decorator again or create multiple decorated class? Why can't we just defined the data dependency just before usage:
 
-* [async-props](https://github.com/ryanflorence/async-props) (middleware + static method + callback)
 
 ```jsx
-import { Router, Route } from 'react-router'
-import AsyncProps from 'async-props'
-import React from 'react'
-
-class UserPage extends React.Component {
-
-  // 1. define a `loadProps` static method
-  static loadProps(params, cb) {
-    getUser(params.name).then(user=>cb(null, {user}))
+import Resolve from 'react-utilities'
+// getMe() returns a promise
+// getFriends() returns an array of promises
+let friendPage = ()=><div>
+  // render me.
+  <Resolve name='user' promise={getMe()}>
+    <UserProfile />
+  </Resolve>
+  // render my friends
+  { 
+    getFriends().map(friend$=>
+      <Resolve name='user' promise={friend$}>
+        <UserProfile />
+      </Resolve>)
   }
-
-  render() {
-    // 2. access data as props :D
-    const user = this.props.user
-    return <User user={user} />      
-  }
-}
-
-// 3. Render `Router` with AsyncProps middleware
-render((
-  <Router render={(props) => <AsyncProps {...props}/>}>
-    <Route path="/" component={UserPage}/>
-  </Router>
-), el)
+</div>
 ```
+So we can focus to building pure component Like `UserProfile` without worring where to get the data.
 
-* [react-refetch](https://github.com/heroku/react-refetch)
+Full document of Resolve is [HERE](Resolve.md).
+
+## Delegating
+
+Times to time you will find yourself writing a bunch of wrapper component just to rearrange some props from parent to children. For example, when you use a `router` libaray, it might add a `match` object to your object indicating how the route path matches URL. The `match` object may looks like this.
 
 ```jsx
-import React, { Component } from 'react'
-import { connect, PromiseState } from 'react-refetch'
+{
+ params:{
+   userId:'123'
+ },
+ url:"/user/123"
+}
+```
 
-class Profile extends Component {
-  render() {
-    const { userFetch } = this.props
-    if (userFetch.pending) {
-      return <LoadingAnimation/>
-    } else if (userFetch.rejected) {
-      return <Error error={userFetch.reason}/>
-    } else if (userFetch.fulfilled) {
-      return <User user={userFetch.value}/>
-    }
+But your `UserPage` component is defined to take `userId` as a property. So you whether goto `UserPage.js` add a line like:
+
+`let userId = this.props.match.params.userId`
+
+or create a new component 
+
+```jsx
+let UserPageWrapper = 
+  ({match:{params:{userId}}}) =>
+    <UserPage userId={userId} />
+```
+
+
+By using `Delegate` you can call it like this:
+
+```jsx
+<Route path='/user/:userId'>
+  <Delegate _={{userId:'match.params.userId'}}>
+    <UserPage />    
+  </Delegate>
+</Route>
+```
+
+Let `Delegate` to do these work for you.
+
+Full document of Delegate is [HERE](Delegate.md).
+
+## Debounce and Throttle
+
+Chaning the `DOM` is slow, so we may not update it too often. In the `javascript` world, you can prevent calling a method too often by using `_.debounce` or `_.throttle` from [`lodash`](https://lodash.com/docs/#debounce). For example, when handling form validation, you might use `_.debounce` to `onChange` method in `input` element. But if you want to prevent rendering too often, you cannot call `_.debounce` to `render` since `render` is sync.
+
+For example, the `UserSearch` component take `username` as input to list users that match search keyword. when user change the keyword, search result would display after 2000ms.
+
+```jsx
+<div>
+  <input value={keyword} onChange={changeKeyWord} />
+  <p>search result of {keyword}:</p>
+  <Debounce timeout={2000} username={keyword}>
+    <UserSearch />
+  </Debounce>
+</div>
+```
+Full document of `Debounce` is [HERE](Debounce.md).
+Full document of `Throttle` is [HERE](Throttle.md).
+
+# Diff
+When dealling with library with imperative api. Lots of time wrapping it is to handle properties diff to avoid repeatly setting options.
+
+```jsx
+class Map extends React.Component{
+  mount = (div)=>{
+    this.map = AMap(div,{
+      city:this.prop.city
+    })
+  }
+  render(){
+    if (this.map){
+      this.setCity(this.props.city)
+    
+    return <div ref={div=>this.mount} />
   }
 }
 
-export default connect(props => ({
-  userFetch: `/users/${props.userId}`,  
-}))(Profile)
+class Page extends React.component {
+  state={'city':'hangzhou'}
+  onChange = (e)=>{
+    this.setState({city:e.target.value})
+  }
+  render(){
+    return (
+      <div>
+        <input value={this.state.city} onChange={this.onChange} />
+        <Diff city={city}>
+          <Map>
+        </Diff>
+      </div>);
+  }
+}
 ```
+Full document of `Diff` is [HERE](Diff.md).

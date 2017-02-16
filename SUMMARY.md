@@ -1,18 +1,17 @@
 # Summary
 
 * [Introduction](README.md)
-* Installation
-* [Getting Started](getting-started.md)
 * [WHY another library?](docs/why.md)
 * Guide
   * Dynamic Component 
   * Use with Router
   * Animation
-* Components
+* Components  
+  * [Resolve](docs/Resolve.md)
   * [Delegate](docs/Delegate.md)
-  * [Resolve](docs/resolve.md)
-  * [Debounce](docs/debounce.md)
-  * [Throttle](docs/throttle.md)
+  * [Debounce](docs/Debounce.md)
+  * [Throttle](docs/Throttle.md)
+  * [Diff](docs/Diff.md)
 * Functions
   * [pure](docs/functions/pure.md)
   * [render](docs/functions/render.md)
