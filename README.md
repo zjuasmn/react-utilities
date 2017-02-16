@@ -21,7 +21,7 @@ $ yarn add react-utilities
 Use CDN
 
 - Assuming `React` has already imported.
-- The include [https://unpkg.com/react-utilities/umd/react-utilities.js](https://unpkg.com/mobx-history/umd/mobx-history.js)
+- The include [https://unpkg.com/react-utilities/umd/react-utilities.js](https://unpkg.com/react-Utilities/umd/react-Utilities.js)
 
 
 Then with a module bundler like [webpack](https://webpack.github.io/), use as you would anything else.
