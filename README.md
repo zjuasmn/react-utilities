@@ -3,6 +3,7 @@
 [npm-badge]: https://img.shields.io/npm/v/react-utilities.svg?style=flat-square
 [npm]: https://www.npmjs.org/package/react-utilities
 
+Whole document is in [Gitbook](https://zjuasmn.gitbooks.io/react-utilities/content/) now.
 The missing react utility components. 
 
 [Why anthor utility libary?](docs/why.md)
@@ -42,6 +43,10 @@ var Delegate = require('react-utilities').Delegate
 // after fetch data `{id:1,name:'alice'}` it would render
 <User user={{id:1,name:'alice'}} /> 
 ```
+
+### Demo
+![https://github.com/zjuasmn/react-utilities/blob/master/resolve-demo.gif?raw=true](https://github.com/zjuasmn/react-utilities/blob/master/resolve-demo.gif?raw=true)
+
 ### Delegate
   `Delegate` is a component delegate rendering to other component.
   

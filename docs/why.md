@@ -133,7 +133,7 @@ class Page extends React.component {
       <div>
         <input value={this.state.city} onChange={this.onChange} />
         <Diff city={city}>
-          <Map>
+          <Map />
         </Diff>
       </div>);
   }
