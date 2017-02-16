@@ -2,7 +2,7 @@ const webpack = require('webpack');
 
 module.exports = {
   output: {
-    library: 'reactMobxUtils',
+    library: 'reactUtilities',
     libraryTarget: 'umd'
   },
   

@@ -18,6 +18,12 @@ or
 $ yarn add react-utilities
 ```
 
+Use CDN
+
+- Assuming `React` has already imported.
+- The include [https://unpkg.com/react-utilities/umd/react-utilities.js](https://unpkg.com/mobx-history/umd/mobx-history.js)
+
+
 Then with a module bundler like [webpack](https://webpack.github.io/), use as you would anything else.
 
 ```js
@@ -29,6 +35,9 @@ import Resolve from 'react-utilities/Resolve'
 
 // using CommonJS modules
 var Delegate = require('react-utilities').Delegate
+
+// CDN
+var Delegate = reactUtilities.Delegate
 ```
 
 ## Overview
@@ -49,8 +58,7 @@ var Delegate = require('react-utilities').Delegate
 
 ### Delegate
   `Delegate` is a component delegate rendering to other component.
-  
-  
+
 
 ### Debounce
   `Debounce` is a react component to [`debounce`](https://lodash.com/docs#debounce) certain properties to children component. So children component will render less  frequently(if you make it pure).
