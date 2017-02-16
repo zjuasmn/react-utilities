@@ -1,11 +1,10 @@
 import React, {Component} from "react";
-import {observer} from "mobx-react";
-import {observable, action} from 'mobx'
 import isEqualShallow from 'is-equal-shallow'
+import {render} from './utils'
 const debug = require('debug')('react-utilities:Debounce');
 const PropTypes = React.PropTypes;
 
-@observer
+
 export default class Debounce extends Component {
   static propTypes = {
     timeout: PropTypes.number,
@@ -30,10 +29,13 @@ export default class Debounce extends Component {
   
   componentWillUnmount() {
     this.clearTimer();
+    this.prevProps = {};
+    this.renderProps = {};
+    this.lastChangeTime = 0;
   }
   
   setRenderProps = ()=>{
-    let {timeout, leading, children, ...props} = this.props;
+    let {timeout, leading, children, component, ...props} = this.props;
     this.renderProps = props;
   };
   
@@ -55,7 +57,7 @@ export default class Debounce extends Component {
   };
   
   render() {
-    let {timeout, leading, children, ...props} = this.props;
+    let {timeout, leading, component, ...props} = this.props;
     if (timeout == Infinity) {
       timeout = Number.MAX_VALUE;
     }
@@ -69,6 +71,6 @@ export default class Debounce extends Component {
       this.deferUpdate(this.lastChangeTime + timeout - now);
     }
     
-    return React.cloneElement(React.Children.only(children), this.renderProps);
+    return render(component, this.renderProps);
   }
 }

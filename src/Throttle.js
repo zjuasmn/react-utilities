@@ -1,10 +1,8 @@
 import React, {Component} from "react";
-import {observer} from "mobx-react";
-import {observable, action} from 'mobx'
+import {render} from './utils'
 const debug = require('debug')('react-utilities:Throttle');
-
 const PropTypes = React.PropTypes;
-@observer
+
 export default class Throttle extends Component {
   static propTypes = {
     timeout: PropTypes.number,
@@ -31,10 +29,11 @@ export default class Throttle extends Component {
   }
   
   setRenderProps = () => {
-    let {timeout, leading, children, ...props} = this.props;
+    let {timeout, leading, children, component, ...props} = this.props;
     this.lastRenderTime = new Date().getTime();
     this.renderProps = props;
   };
+  
   clearTimer = () => {
     clearTimeout(this.timer);
     this.timer = null;
@@ -53,12 +52,12 @@ export default class Throttle extends Component {
   };
   
   render() {
-    let {timeout, leading, children, ...props} = this.props;
+    let {timeout, leading, component, ...props} = this.props;
     if (timeout == Infinity) {
       timeout = Number.MAX_VALUE;
     }
     this.deferUpdate(this.lastRenderTime + timeout - new Date().getTime());
     
-    return React.cloneElement(React.Children.only(children), this.renderProps);
+    return render(component, this.renderProps);
   }
 }
