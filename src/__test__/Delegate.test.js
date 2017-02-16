@@ -41,6 +41,36 @@ describe('Delegate', () => {
     expect(wrapper.html()).to.be.eql('<div></div>');
     wrapper.setProps({component:'p'});
     expect(wrapper.html()).to.be.eql('<p>1</p>');
+    
+    // watch as bool
+    wrapper.setProps({watch:false,id:1});
+    expect(wrapper.html()).to.be.eql('<p id="1">1</p>');
+    wrapper.setProps({watch:true,id:1});
+    expect(wrapper.html()).to.be.eql('<p id="1">1</p>');
+    
+    // watch as array
+    wrapper.setProps({watch:['component'],id:2});
+    expect(wrapper.html()).to.be.eql('<p id="1">1</p>');
+    wrapper.setProps({component:'b'});
+    expect(wrapper.html()).to.be.eql('<b id="2">1</b>');
+    
+    // watch as object
+    wrapper.setProps({watch:{id:true,component:true},id:2});
+    expect(wrapper.html()).to.be.eql('<b id="2">1</b>');
+    wrapper.setProps({id:1});
+    expect(wrapper.html()).to.be.eql('<b id="1">1</b>');
+    
+    // watch is function
+    wrapper.setProps({watch:(_,{id})=>id==4,id:3});
+    expect(wrapper.html()).to.be.eql('<b id="1">1</b>');
+    wrapper.setProps({id:4});
+    expect(wrapper.html()).to.be.eql('<b id="4">1</b>');
+    
+    // watch is other
+    let x = console.error;
+    console.error = ()=>null;
+    expect(()=> wrapper.setProps({watch:11})).to.throw();
+    console.error = x;
   })
 });
 

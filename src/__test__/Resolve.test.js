@@ -31,6 +31,14 @@ describe('Resolve', () => {
     await nextTick();
     expect(wrapper.html()).to.be.eql(`<div id="3"></div>`);
   });
+  it('should work in idle case', async() => {
+    const wrapper = mount(<Resolve name="id" promise={promise} fulfilled="div" idle="p" pending='h1'/>);
+    expect(wrapper.html()).to.be.eql(`<p></p>`);
+    wrapper.setProps({promise:null});
+    resolve();
+    await nextTick();
+    expect(wrapper.html()).to.be.eql(`<p></p>`);
+  });
   it('should work when rejected', async() => {
     let Error = ({error}) => <p>{error}</p>;
     const wrapper = mount(<Resolve promise={promise} rejected={Error}/>);

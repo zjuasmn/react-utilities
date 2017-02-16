@@ -3,4 +3,4 @@ export Resolve from './Resolve'
 export Debounce from './Debounce'
 export Throttle from './Throttle'
 
-export {render} from './utils'
+export {render, RenderablePropType} from './utils'

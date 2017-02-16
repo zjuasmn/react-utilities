@@ -20,24 +20,35 @@ export default class Delegate extends Component {
   };
   
   shouldComponentUpdate(nextProps) {
-    let {watch} = this.props;
-    if (watch) {
-      if (watch instanceof Array) {
-        for (let key of watch) {
-          if (this.props[key] != nextProps[key]) {
-            return true;
-          }
-        }
-        return false;
-      } else if (typeof watch == 'string') {
-        return this.props[watch] != nextProps[watch];
-      } else if (typeof watch == 'boolean') {
-        return isEqualShallow(this.props, nextProps);
-      } else {
-        console.error('???');
-      }
-    } else {
+    let {watch} = nextProps;
+    if (!watch) {
       return true;
+    }
+    switch (typeof watch) {
+      case 'string':
+        return this.props[watch] != nextProps[watch];
+      case 'boolean': // it should be `true` now.
+        return isEqualShallow(this.props, nextProps);
+      case 'function':
+        return watch(this.props, nextProps);
+      default:
+        if (watch instanceof Array) {
+          for (let key of watch) {
+            if (this.props[key] != nextProps[key]) {
+              return true;
+            }
+          }
+          return false;
+        } else if (isPlainObject(watch)) {
+          for (let key in watch) {
+            if (watch[key] && this.props[key] != nextProps[key]) {
+              return true;
+            }
+          }
+          return false;
+        } else {
+          invariant(false, 'Delegate: Unknow watch type.');
+        }
     }
   }
   
