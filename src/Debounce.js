@@ -1,6 +1,5 @@
 import React, {Component} from "react";
-import {isSwallowEqual} from './utils'
-import {render} from './utils'
+import {render,isPropsSwallowEqual} from './utils'
 const debug = require('debug')('react-utilities:Debounce');
 const PropTypes = React.PropTypes;
 
@@ -35,7 +34,7 @@ export default class Debounce extends Component {
   }
   
   setRenderProps = ()=>{
-    let {timeout, leading, children, component, ...props} = this.props;
+    let {timeout, leading, component, ...props} = this.props;
     this.renderProps = props;
   };
   
@@ -63,7 +62,7 @@ export default class Debounce extends Component {
     }
     let now = new Date().getTime();
     
-    if (!isSwallowEqual(props, this.prevProps)) {
+    if (!isPropsSwallowEqual(props, this.prevProps)) {
       this.prevProps = props;
       this.lastChangeTime = now;
       this.deferUpdate(timeout);
