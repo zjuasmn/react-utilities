@@ -15,7 +15,7 @@ export default class Delegate extends Component {
   };
   static defaultProps = {
     _: IdentityFn,
-    watch: true,
+    watch: false,
   };
   
   shouldComponentUpdate(nextProps) {
@@ -26,8 +26,8 @@ export default class Delegate extends Component {
     switch (typeof watch) {
       case 'string':
         return this.props[watch] != nextProps[watch];
-      case 'boolean': // it should be `true` now.
-        return isPropsSwallowEqual(this.props, nextProps);
+      case 'boolean': // `watch` should be `true` now.
+        return !isPropsSwallowEqual(this.props, nextProps);
       case 'function':
         return watch(this.props, nextProps);
       default:
