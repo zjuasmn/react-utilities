@@ -10,8 +10,7 @@
   * [Delegate](docs/Delegate.md)
   * [Debounce](docs/Debounce.md)
   * [Throttle](docs/Throttle.md)
-  * [Diff](docs/Diff.md)
-* [Functions](functions.md)
-  * [render](docs/functions/render.md)
+* Functions
+  * [isElementShallowEqual](docs/functions/isElementShallowEqual.md)
 * [Constants](docs/constans.md)
 
