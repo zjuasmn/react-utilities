@@ -1,4 +1,4 @@
-# Why anthor React library
+e# Why anthor React library
 
 Yes, React is great and we all love it! `React` is design as a synchronous function `f` where `UI = f(state)` and all changes in state will sycn to `UI` with `render` function apply from top to bottom. In the realm of  `React`, nearly every thing is synchronous.
 
@@ -47,7 +47,7 @@ So we can focus to building pure component Like `UserProfile` without worring wh
 
 Full document of Resolve is [HERE](Resolve.md).
 
-## Delegating
+## Delegate
 
 Times to time you will find yourself writing a bunch of wrapper component just to rearrange some props from parent to children. For example, when you use a `router` libaray, it might add a `match` object to your object indicating how the route path matches URL. The `match` object may looks like this.
 
