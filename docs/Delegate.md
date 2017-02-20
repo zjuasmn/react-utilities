@@ -78,5 +78,5 @@ will make it a pure component.
 
 - **...props**
 
-Rest props would pass to 
+Rest props would pass to children.
 

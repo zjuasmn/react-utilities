@@ -54,6 +54,11 @@ var Delegate = reactUtilities.Delegate
 <User user={{id:1,name:'alice'}} /> 
 ```
 
+with  `Resolve`, one can 
+
+- Load remote data from server while rendering certain component.
+- Make your `Component` lazy load and use Code splitting in webpack.  [demo](demo/webpack-codesplitting-lazyload)
+
 ### Demo
 ![https://github.com/zjuasmn/react-utilities/blob/master/resolve-demo.gif?raw=true](https://github.com/zjuasmn/react-utilities/blob/master/resolve-demo.gif?raw=true)
 
