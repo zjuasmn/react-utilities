@@ -29,6 +29,10 @@ describe('Delegate', () => {
       component: 'a'
     });
     expect(mount(<Delegate _={func} a={'div'} id={123}>Hello</Delegate>).html()).to.be.eql('<a id="div">Hello</a>');
+    
+    func=(props)=>null;
+    expect(mount(<Delegate _={func} a={'div'} id={123} component="div">Hello</Delegate>).html()).to.be.eql('<div id="123">Hello</div>');
+    
     let x = console.error;
     console.error = ()=>{};
     expect(()=>mount(<Delegate _={123} component="p">1</Delegate>).html()).to.throw(Error);

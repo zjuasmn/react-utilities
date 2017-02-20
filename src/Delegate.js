@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import isPlainObject from "is-plain-object";
 import invariant from 'invariant'
-import {render, RenderablePropType, isPropsSwallowEqual} from "./utils";
+import {render, isPropsSwallowEqual} from "./utils";
 const debug = require('debug')('react-utilities:Delegate');
 const PropTypes = React.PropTypes;
 
@@ -10,8 +10,7 @@ const IdentityFn = (props) => props;
 export default class Delegate extends Component {
   static propTypes = {
     _: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    component: RenderablePropType,
-    
+    // component: RenderablePropType,
   };
   static defaultProps = {
     _: IdentityFn,
@@ -56,7 +55,7 @@ export default class Delegate extends Component {
     
     let props = {};
     if (typeof _ == 'function') {
-      props = _(this.props);
+      props = _(this.props) || {};
     } else if (isPlainObject(_)) {
       for (let key in _) {
         let value = _[key];

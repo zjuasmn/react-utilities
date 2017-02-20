@@ -1,16 +1,14 @@
 import React, {Component, PropTypes} from 'react'
-import {observable} from 'mobx'
+
 import Debounce from '../../src/Debounce'
 import Throttle from '../../src/Throttle'
 
-import {observer} from 'mobx-react'
-
-const View = observer(function View({value, color, realValue}) {
+const View = function View({value, color, realValue}) {
   console.log('render');
   return <div style={{color, background: `${realValue == value ? 'blue' : 'red'}`}}>
     {value}
   </div>
-});
+};
 
 export default class DebounceDemo extends Component {
   constructor(props) {
