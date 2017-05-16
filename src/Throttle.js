@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {render} from './utils'
 const debug = require('debug')('react-utilities:Throttle');
-const PropTypes = React.PropTypes;
+import PropTypes from 'prop-types'
 
 export default class Throttle extends Component {
   static propTypes = {
@@ -53,7 +53,7 @@ export default class Throttle extends Component {
   
   render() {
     let {timeout, leading, component, ...props} = this.props;
-    if (timeout == Infinity) {
+    if (timeout === Infinity) {
       timeout = Number.MAX_VALUE;
     }
     this.deferUpdate(this.lastRenderTime + timeout - new Date().getTime());

@@ -1,5 +1,5 @@
 import React from 'react'
-const PropTypes = React.PropTypes;
+import PropTypes from 'prop-types'
 import isPlainObject from 'is-plain-object'
 const debug = require('debug')('react-utilities:utils');
 
@@ -7,7 +7,7 @@ function isEmptyObject(obj) {
   return !Object.keys(obj).length
 }
 
-export const RenderablePropType = React.PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.element]);
+export const RenderablePropType = PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.element]);
 
 export function render(Comp, props) {
   if (!isPlainObject(props)) {
@@ -91,7 +91,7 @@ export function isChildrenSwallowEqual(children1, children2) {
     return false;
   }
   let n = React.Children.count(children1);
-  if (n != React.Children.count(children2)) {
+  if (n !== React.Children.count(children2)) {
     return false;
   }
   for (let i = 0; i < n; ++i) {

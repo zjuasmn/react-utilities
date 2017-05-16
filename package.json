@@ -25,6 +25,7 @@
   "dependencies": {
     "debug": "^2.6.1",
     "is-plain-object": "^2.0.1",
+    "prop-types": "^15.5.10",
     "react": "^15.0.0"
   },
   "devDependencies": {

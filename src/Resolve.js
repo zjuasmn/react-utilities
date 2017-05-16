@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import isPlainObject from "is-plain-object";
 import {render, RenderablePropType} from "./utils";
-const PropTypes = React.PropTypes;
+import PropTypes from 'prop-types'
 const debug = require('debug')('react-utilities:Resolve');
 
 export const IDLE = 'idle';
@@ -27,7 +27,7 @@ export default class Resolve extends Component {
   isUnmount = false;
   
   setPromise = ((promise = null) => {
-    if (promise != this.promise) {
+    if (promise !== this.promise) {
       debug('setPromise', promise);
       this.promise = promise;
       
@@ -51,7 +51,7 @@ export default class Resolve extends Component {
   
   done = ((promise, value, state) => {
     debug('done', promise, value, state);
-    if (promise == this.promise) {
+    if (promise === this.promise) {
       this.isPromiseSwitching = false;
       this.setState({
         _state: state,
