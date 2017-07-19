@@ -14,38 +14,38 @@ export default class Delegate extends Component {
   };
   static defaultProps = {
     _: IdentityFn,
-    watch: false,
+    $watch: false,
   };
   
   shouldComponentUpdate(nextProps) {
-    let {watch} = nextProps;
-    if (!watch) {
+    let {$watch} = nextProps;
+    if (!$watch) {
       return true;
     }
-    switch (typeof watch) {
+    switch (typeof $watch) {
       case 'string':
-        return this.props[watch] !== nextProps[watch];
-      case 'boolean': // `watch` should be `true` now.
+        return this.props[$watch] !== nextProps[$watch];
+      case 'boolean': // `$watch` should be `true` now.
         return !isPropsSwallowEqual(this.props, nextProps);
       case 'function':
-        return watch(this.props, nextProps);
+        return $watch(this.props, nextProps);
       default:
-        if (watch instanceof Array) {
-          for (let key of watch) {
+        if ($watch instanceof Array) {
+          for (let key of $watch) {
             if (this.props[key] !== nextProps[key]) {
               return true;
             }
           }
           return false;
-        } else if (isPlainObject(watch)) {
-          for (let key in watch) {
-            if (watch[key] && this.props[key] !== nextProps[key]) {
+        } else if (isPlainObject($watch)) {
+          for (let key in $watch) {
+            if ($watch[key] && this.props[key] !== nextProps[key]) {
               return true;
             }
           }
           return false;
         } else {
-          invariant(false, 'Delegate: Unknow watch type.');
+          invariant(false, 'Delegate: Unknow $watch type.');
         }
     }
   }
@@ -91,7 +91,7 @@ export default class Delegate extends Component {
         }
       }
     }
-    let {_:_1, watch:_2, component, ...oProps} = props;
+    let {_:_1, $watch:_2, component, ...oProps} = props;
     return render(component, oProps);
   }
 }
